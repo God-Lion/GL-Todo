@@ -1,0 +1,32 @@
+$black: #333;
+$white: #FFF;
+$primary-color: #F3520F;
+
+$bg-color: $black;
+$card-color: $white;
+
+$badge-color: $black;
+$active-color: goldenrod;
+
+.primary {
+    background-color: $primary-color !important;
+    color: $white !important;
+    text-shadow: 2px 2px 18px $primary-color !important;
+    &-text {
+        color: $primary-color !important;
+        text-shadow: 2px 2px 18px $white !important;
+    }
+}
+
+
+.purple { 
+    background-color: #9c27b0 !important;
+    &-text { color: #9c27b0 !important; }
+}
+
+.goldenrod { background-color: goldenrod !important; }
+
+.white {
+    color: $white !important;
+    text-shadow: 2px 2px 18px $primary-color !important;
+}

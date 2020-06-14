@@ -1,0 +1,64 @@
+.navbar {
+    font-family: Verdana;
+    font-size: 1rem;
+    display: flex;
+    
+    a, button {
+        color: $nav-color;
+        // color: $black;
+        text-decoration: none;
+    }
+
+    ul {
+        list-style-type: none;
+        display: flex;
+
+        .marker {
+            background-color: $nav-color;
+            border-radius: 15px;
+            height: 4px;
+            position: absolute;
+            bottom: 0;
+            top: 45px;
+            left: 0;
+            transition: .5s;
+            width: 100%;
+        }
+
+        a {
+            display: block;
+            padding: 15px 30px;
+            text-align: center;
+        }
+
+        button {
+            background: transparent;
+            border: none;
+            padding: 15px 30px;
+
+            &:focus { outline: none; }
+        }
+
+        button:hover {
+            color: #978989;
+            transition: .5s;
+        }
+    }
+
+    ul a:hover {
+        color: #978989;
+        text-decoration: none;
+    }
+}
+
+.navbar-brand {
+    color: $nav-color;
+    font-size: 30px;
+    text-transform: uppercase;
+    margin-top: 11px;
+    
+    span {
+        background-color: rgba($color: $nav-color, $alpha: 0.13);
+        padding: 9px 12px 9px 12px;
+    }
+}

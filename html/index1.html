@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <div class="todo-overlay show"></div>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/icon.css" href="icon.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <title>To-Do | God-Lion</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="col-12">
+        <div class="col-1">
+          <button class="btn-todo show-on-small"><i class="material-icons">menu</i></button>
+        </div>
+      </div>
+
+    </header>
+    <main role="main">
+      <section class="container row">
+        <div class="col-12">
+          <div class="col-3">
+            <div class="sidebar-left col-12 hide-on-small">
+              <div class="sidebar">
+                <div class="sidebar-content">
+
+
+                  <div class="sidebar-header">
+                    <div class="sidebar-details">
+                      <h5 class="sidebar-title"><i class="material-icons">check_box</i> To-Do</h5>
+                      <div class="row animate fadeLeft">
+                        <div class="todo-user">
+                          <p class="subtitle">Lawrence Collins</p>
+                          <p class="text-muted">lawrence.collins@xyz.com</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="sidebar-menu">
+                    <ul class="todo-list display-grid">
+                      <li class="active"><button class="text-sub"><i class="material-icons"> mail_outline </i> All</button></li>
+                      <li class="sidebar-title-list">Filters</li>
+                      <li><button class="text-sub"><i class="material-icons"> star_border </i> Starred</button></li>
+                      <li><button class="text-sub"><i class="material-icons"> info_outline </i> Priority</button></li>
+                      <li><button class="text-sub"><i class="material-icons"> watch_later </i> Scheduled</button></li>
+                      <li><button class="text-sub"><i class="material-icons"> date_range </i> Today</button></li>
+                      <!-- <li><button class="text-sub"><i class="material-icons"> check </i> Done</button></li>
+                      <li><button class="text-sub"><i class="material-icons"> delete </i> Delete</button></li>
+                      <li class="sidebar-title-list">Department</li>
+                      <li><button class="text-sub"><i class="purple-text material-icons small-icons">fiber_manual_record </i> API</button></li>
+                      <li><button class="text-sub"><i class="amber-text material-icons small-icons">fiber_manual_record </i> Paypal</button></li>
+                      <li><button class="text-sub"><i class="light-green-text material-icons small-icons">fiber_manual_record </i> Invoice</button></li> -->
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          <div class="col-6">
+            <div class="todo-search border-radius">
+              <i class="material-icons todo-search icon">search</i>
+              <input type="text" placeholder="Rerchercher Un Contact" class="app-filter">
+            </div>
+
+            <div class="card todo border-radius">
+              <div class="card-content">
+
+                <div class="todo-header">
+                  <div class="todo-header-checkbox">
+                    <label>
+                      <input type="checkbox">
+                      <span></span>
+                    </label>
+                  </div>
+                  <div class="list-content"></div>
+                    <div class="todo-action">
+                      <span class="delete-tasks"><i class="material-icons grey-text mr-1">delete</i></span>
+                      <span class="sort-task"><i class="material-icons grey-text">sort</i></span>
+                      <!-- <div class="select-action"> -->
+                        <!-- Dropdown Trigger -->
+                        <!-- <a class="dropdown-trigger grey-text" href="#" data-target="dropdown1"> <i class="material-icons">more_vert</i></a>
+                        <ul id="dropdown1" class="dropdown-content" tabindex="0">
+                          <li tabindex="0"><a href="#!">All</a></li>
+                          <li tabindex="0"><a href="#!">Read</a></li>
+                          <li tabindex="0"><a href="#!">Unread</a></li>
+                          <li tabindex="0"><a href="#!">Starred</a></li>
+                          <li tabindex="0"><a href="#!">Unstarred</a></li>
+                        </ul> -->
+                        <!-- Dropdown Structure -->
+                      <!-- </div> -->
+                    </div>
+                </div>
+
+                <ul class="collection" >
+                  <li class="collection-item">
+                    <div class="todo-move">
+                      <i class="material-icons icon-move">more_vert</i>
+                    </div>
+                    <div class="list-left">
+                      <label>
+                        <input type="checkbox" name="foo">
+                        <span></span>
+                      </label>
+                      <i class="material-icons favorite">star_border</i>
+                    </div>
+                    <div class="list-content">
+                      <div class="list-title-area">
+                        <div class="list-title">Contrary to popular belief</div>
+                        <span class="badge grey lighten-2">
+                          <i class="purple-text material-icons small-icons">
+                          fiber_manual_record </i>API
+                        </span>
+                      </div>
+                      <div class="list-desc">There are many variations of passages of Lorem Ipsum available, but the majority
+                        have suffered alteration in some form, by injected humour, or randomised words which don't look even
+                        slightly believable. If you are going to use a passage of Lorem Ipsum</div>
+                    </div>
+                    <div class="list-right">
+                      <div class="list-date"> 23 Apr </div>
+                      <div class="delete-task center todo"><i class="material-icons">delete</i></div>
+                    </div>
+                  </li>
+                  <li class="collection-item">
+                    <div class="todo-move">
+                      <i class="material-icons icon-move">more_vert</i>
+                    </div>
+                    <div class="list-left">
+                      <label>
+                        <input type="checkbox" name="foo">
+                        <span></span>
+                      </label>
+                      <i class="material-icons favorite">star_border</i>
+                    </div>
+                    <div class="list-content">
+                      <div class="list-title-area">
+                        <div class="list-title">Cupcake tootsie roll icing biscuit</div>
+                        <span class="badge grey lighten-2"><i class="amber-text material-icons small-icons mr-2">
+                            fiber_manual_record </i>Paypal</span>
+                      </div>
+                      <div class="list-desc">Chocolate cake biscuit candy canes carrot cake. Bear claw wafer jujubes bear
+                        claw candy biscuit. Jelly-o pudding topping. Muffin soufflé cotton candy topping candy muffin
+                        biscuit. Lemon drops lemon drops powder gingerbread pastry cake.</div>
+                    </div>
+                    <div class="list-right">
+                      <div class="list-date"> 23 Apr </div>
+                      <div class="delete-task"><i class="material-icons">delete</i></div>
+                    </div>
+                  </li>
+                  <li class="collection-item">
+                    <div class="todo-move">
+                      <i class="material-icons icon-move">more_vert</i>
+                    </div>
+                    <div class="list-left">
+                      <label>
+                        <input type="checkbox" name="foo">
+                        <span></span>
+                      </label>
+                      <i class="material-icons favorite">star_border</i>
+                    </div>
+                    <div class="list-content">
+                      <div class="list-title-area">
+                        <div class="list-title">Apple pie cake biscuit bonbon</div>
+                        <span class="badge grey lighten-2"><i class="purple-text material-icons small-icons mr-2">
+                            fiber_manual_record </i>API</span>
+                      </div>
+                      <div class="list-desc">Pudding ice cream macaroon caramels oat cake gummies jelly-o wafer macaroon.
+                        Gingerbread cheesecake pudding donut halvah pastry cheesecake. Tootsie roll lemon drops brownie ice
+                        cream jelly jelly fruitcake. Muffin tiramisu cake ice cream.</div>
+                    </div>
+                    <div class="list-right">
+                      <div class="list-date"> 23 Apr </div>
+                      <div class="delete-task"><i class="material-icons">delete</i></div>
+                    </div>
+                  </li>
+                </ul>
+
+               
+
+
+
+
+
+
+
+
+
+
+
+              </div>
+            </div>
+
+
+
+          </div>
+
+
+          <div class="todo compose sidebar righ t show">
+            <div class="card">
+              <div class="card-content">
+                <div class="card-header display-flex">
+                  <h3 class="card-title todo title hid">NOUVELLE TACHE</h3>
+                  <button class="btn todo complete primary hide">Tacche Complete</button>
+                  <div class="close icon"><i class="material-icons">close</i></div>
+                </div>
+
+                <form class="todo edit item ">
+                  <div class="input-field">
+                    <textarea id="title" class="todo edit item title textarea" style="height: 10px; padding: .8rem 0 .8rem 0;"></textarea>
+                    <label for="title">Ecrire le nom de la tache</label>
+                  </div>
+                  <div class="input-field">
+                    <textarea id="content" class="todo edit item content" style="height: 150px; padding: .8rem 0 .8rem 0;"></textarea>
+                    <label for="content" style="top: 30px;">Ajouter la description</label>
+                  </div>
+                  <div class="card-action right-align">
+                    <button class="btn small primary todo add hid e "><span>ajouter une tache</span></button>
+                    <button class="btn small todo  update hide"><span>Save Changes</span></button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+      </section>
+      <div style="bottom: 75px; right: 19px;" class="btn action fixed active"><button class="btn floating large goldenrod"><i class="material-icons white">note_add</i></button></div>
+
+
+
+
+    
+    </main>
+    <footer class="footer"></footer>
+    <!-- <script src="../js/vue.js" type="text/javascript"></script> -->
+    <!-- <script src="../js/index.js" type="text/javascript"></script> -->
+    <!-- <script src="../js/quill.min.js" type="text/javascript"></script> -->
+  </body>
+</html>

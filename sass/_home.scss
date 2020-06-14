@@ -1,0 +1,22 @@
+.main {
+    margin-top: 100px;
+    position: relative;
+    & div { padding: 0; }
+
+    .home {
+        margin-top: 120px;
+        // background-color: peru;
+        &.btn { margin: 50% 38% 0 0; }
+    }
+}
+
+$num-heading: 7;
+$i: 1;
+@for $i from $i to $num-heading {
+    .h#{$i} { 
+        color: $nav-color;
+        $perc: unquote((4 / ($num-heading / ($num-heading - $i) )) + "rem");
+        font-size: $perc;
+        // background-color: aqua;
+    } 
+}
