@@ -3,11 +3,23 @@ class User {
   static currentUser = 0
   static isUser = true
 
-  constructor(id, name, email) {
+  constructor(id, name, lastName, email) {
     this.id = id
     this.name = name
+    this.lastName = lastName
     this.email = email
   }
+  // getId () { return this.id }
+  // setId ( id ) { this.id = id }
+
+  // getName () { return this.name }
+  // setName ( name ) { this.name = name }
+
+  // getLastName () { return this.lastName }
+  // setLastName ( lastName ) { this.lastName = lastName }
+
+  // getEmail () { return this.email }
+  // setEmail ( email ) { this.email = email }
 }
 
 class Todo {
@@ -20,15 +32,27 @@ class Todo {
     this.content = content
     this.completed = completed
   }
+  // getId () { return this.id }
+  // setId ( id ) { this.id = id }
+
+  // getTitle () { return this.title }
+  // setTitle ( title ) { this.title = title }
+
+  // getContent () { return this.content }
+  // setContent ( content ) { this.content = content }
+
+  // getCompleted () { return this.completed }
+  // setCompleted ( completed ) { this.completed = completed }
 }
 
 class Storage {
   STORAGE_KEY = 'GL-Todo'
+  static findData = false
   constructor () { this.fetch() }
 
   fetch() { 
     let data = JSON.parse(localStorage.getItem( this.STORAGE_KEY) || '[]')
-    if (  data.toString().length > 1 ) Storage.findData = true
+    if (  data.toString().length !== 0 ) Storage.findData = true
     else this.save([[],[]])
     return data
   }
@@ -49,26 +73,31 @@ class Storage {
     return todos
   }
 
-  save( data ) { localStorage.setItem( this.STORAGE_KEY, JSON.stringify( data ))}
+  save( todo ) { localStorage.setItem( this.STORAGE_KEY, JSON.stringify( todo )) }
 }
 class FilterUsers {
   static noUser (users) { return users.filter( (user) => { return !users.id }) }
-  static current (users) { return users.filter( (user) => { return !users.id }) }
+  // static all (todos) { return todos.filter( (todo) => { return todo.idUser == User.currentUser }) }
+  // static active (todos) { return todos.filter( (todo) => { return (!todo.completed && todo.idUser == User.currentUser) }) }
+  // // static active (todos) { return todos.filter( (todo) => { return !todo.completed }) }
+  // static completed (todos) { return todos.filter( (todo) => { return (todo.completed && todo.idUser == User.currentUser) }) }
 }
 
 class Filters {
   static all (todos) { return todos.filter( (todo) => { return todo.idUser == User.currentUser }) }
+  // static all (todos) { return todos }
   static active (todos) { return todos.filter( (todo) => { return (!todo.completed && todo.idUser == User.currentUser) }) }
+  // static active (todos) { return todos.filter( (todo) => { return !todo.completed }) }
   static completed (todos) { return todos.filter( (todo) => { return (todo.completed && todo.idUser == User.currentUser) }) }
 }
 
 const todoStorage = new Storage()
-
-let user1 = new User ( 1, 'Zico Bornelus', 'borneluszico@gmail.com' ) 
-let user2 = new User ( 2, 'Bico lola', 'lola@gmail.com' ) 
+let user1 = new User ( 1, 'Zico', 'Bornelus', 'borneluszico@gmail.com' ) 
+let user2 = new User ( 2, 'Bico', 'lola', 'lola@gmail.com' ) 
 let allUser = new Array()
 allUser.push( user1 )
 allUser.push( user2 )
+
 let todo1 = new Todo( 1, 0, 'code', 'portfolio', false)
 let todo2 = new Todo( 2, 0, 'Site', 'fdnl', false)
 let todo3 = new Todo( 2, 1, 'Coding PleziAprann', 'PleziAprann', false)
@@ -76,42 +105,35 @@ let allTodo = new Array()
 allTodo.push( todo1 )
 allTodo.push( todo2)
 allTodo.push( todo3)
+
 let all = new Array()
 all.push(allUser)
 all.push(allTodo)
-// todoStorage.save(all)
 
+// todoStorage.save(all)
 
 const todo = new Vue({
   el: '#todo',
   data: {
     todos: todoStorage.fetchAllTodo(),
     users: todoStorage.fetchAllUser(),
-    currentIdUser: 0,
+    currentUser: 0,
     todo: new Todo(),
-    user: new User(),
     editedTodo: null,
-    currentUser: 'current',
     visibility: 'all',
     selected: true,
     showModal: false,
-    showSlideLeft: false,
-    showSlideRight: false,
+    showSlideRight: false
   },
   components: {
-    modal     : {
-      template: '#modal', 
-      props: {
-        value: {
-          require: true,
-          type: User
-        }
-      },
-      computed: {
-        user: { get() { return this.value } }
-      }
-    },
+    modal     : { template: '#modal' },
     deletetodo: { template: '#deletetodo' },
+    slideright: { 
+      props   : {
+        todo: Todo
+      },
+      template: '#slideRight'
+    }
   },
   watch: {
     users: {
@@ -133,75 +155,56 @@ const todo = new Vue({
       deep: true
     }
   },
-  mounted: function() {
-    let slideLeft = document.querySelector('.sidebar.left');
-    let app = document.querySelector('#todo');
-    let startX = 0;
-    let endX = 0;
-    slideLeft.addEventListener("touchmove", (e) => {
-      endX = e.touches[0].pageX
-      if (endX > 250) this.showSlideLeft = false
-      // console.log('app touchmove ' + endX  )
-
-    });
-    app.addEventListener("touchmove", (e) => {
-      // console.log('app touchstart')
-      this.showSlideLeft = false
-      startX = e.touches[0].pageX
-      console.log('app touchmove' + startX)
-      // if(startX < 30) this.showSlideLeft = true
-
-    });
-   
-
-
-
-
-    // slideLeft.addEventListener('touchstart', (e) => {
-    //   console.log('okay touchstart')
-    //   startX = e.touches[0].pageX
-    // });
-    
-    // slideLeft.addEventListener("touchend", function(event) {
-    //   console.log('okay touchend')
-      // this.showSlideLeft = false
-    //   var threshold = startX - endX;
-    //   if (threshold < 150 && 0 < this.currentSlide) this.currentSlide--;
-    //   if (threshold > -150 && this.currentSlide < this.slides.length - 1) this.currentSlide++;
-    // }.bind(this));
-  },
   computed: {
-    filteredUsers () {
-      let data = FilterUsers[this.currentUser]( this.users )
-      if( data.length <= 0 ) this.showModal = true
-      return data 
+    filteredUsers () { 
+      debugger
+      return Filters[this.visibility]( this.users )},
+    filteredTodos () {
+      let data = Filters[this.visibility]( this.todos ) 
+      // if( data.length === 0 ) this.showModal = true
+      return data
     },
-    filteredTodos () { return Filters[this.visibility]( this.todos ) },
-    remaining () { return Filters.active(this.todos).length },
+    remaining () { 
+      return Filters.active(this.todos).length },
     allDone: {
       get () { return this.remaining === 0 },
       set (value) { this.todos.forEach( (todo) => { todo.completed = value }) }
-    }
+    },
+    // lo (a) {
+    //   this.showModal = true
+    // }
   },
+  
   filters: {
     pluralize (n) { return n === 1 ? 'item' : 'items'}
   },
+  // form () {
+
+  // },
   methods: {
-    addUser() {
-      if (!this.user.name && !this.user.email) return
-      this.users.push( new User ( User.length++, this.user.name, this.user.email )  )
-      this.user = new User()
-      this.showModal = false
-    },
     addTodo () {
       let title = this.todo.title && this.todo.title.trim()
       let content = this.todo.content && this.todo.content.trim()
       if (!title && !content) return
-      this.todos.push( new Todo ( Todo.length++, this.currentIdUser, title, content, false )  )
+      this.todos.push( new Todo ( Todo.length++, title, content, false )  )
+      // this.users
       this.todo = new Todo()
     },
     removeTodo (todo) { this.todos.splice(this.todos.indexOf(todo), 1) },
     removeCompleted () { this.todos = Filters.active(this.todos) },
+    beforeEnter: function (el) {
+      console.log(el)
+    },
+    sidebarRight () {
+      
+      const sidebarRight = document.querySelectorAll('.sidebar.right')
+      // if ( sidebarRight) {
+        
+      // }
+      // console.log( sidebarRight.classList.contains('show') )
+      console.log('okay')
+      this.show = true
+    }
     // editTodo (todo) {
     //   this.beforeEditCache = todo.title
     //   this.editedTodo = todo
@@ -251,6 +254,7 @@ onHashChange()
 
 
 const inputs = document.querySelectorAll('form textarea')
+// const inputs = document.querySelectorAll('form.login-form input')
 inputs.forEach(input => {
     let parent = input.parentNode
     input.addEventListener("focus", function () {
@@ -261,5 +265,25 @@ inputs.forEach(input => {
     })
 })
 
-// const inputs = document.querySelectorAll('form .input-field')
-// console.log( inputs )
+
+
+
+// let user1 = new User ( 1, 'Zico', 'Bornelus', 'borneluszico@gmail.com' ) 
+// let user2 = new User ( 2, 'Bico', 'lola', 'lola@gmail.com' ) 
+// let allUser = new Array()
+// allUser.push( user1 )
+// allUser.push( user2 )
+
+// let todo1 = new Todo( 1, 0, 'code', 'portfolio', false)
+// let todo2 = new Todo( 2, 0, 'Site', 'fdnl', false)
+// let todo3 = new Todo( 2, 1, 'Coding PleziAprann', 'PleziAprann', false)
+// let allTodo = new Array()
+// allTodo.push( todo1 )
+// allTodo.push( todo2)
+// allTodo.push( todo3)
+
+// let all = new Array()
+// all.push(allUser)
+// all.push(allTodo)
+
+// todoStorage.save(all)

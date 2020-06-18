@@ -8,12 +8,18 @@
 @import "collection.scss";
 @import "badge.scss";
 @import "sidebar.scss";
+@import "modal.scss";
 
 :root { background-color: $bg-color; }
 html, body { background: transparent; color: #FFF }
 html body {
     background-image: url('../img/bg.png');
     background-size: cover;
+}
+
+body {
+    width: 100%;
+
 }
 
 .header, .footer { 
@@ -140,6 +146,10 @@ html body {
 .right { float: right !important; }
 
 @media only screen and (max-width:$small-screen-up) {
+    body {
+        width: 100%;
+    
+    }
     .todo {
         i {
             font-size: 1rem;

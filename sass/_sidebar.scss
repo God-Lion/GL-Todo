@@ -1,18 +1,26 @@
 .sidebar {
-    &-left {
-        // &.fixed { position: fixed; background-color: palevioletred; }
-        // background-color: palevioletred; 
-        float: left;
-        // width: 23%;
+    &.left {
+        &.fixed { 
+            position: fixed;
+            // background-color: palevioletred;
+        }
+        // background-color: yellow; 
+        // float: left;
+        left: 0;
+        width: 23%;
+        z-index: 999;
     }
-    &-content .sidebar-menu#sidebar-list {
-        position: absolute;
-        overflow: hidden;
-        width: 280px;
-        height: calc(100vh - 325px);
-        margin-left: -1.4rem;
-        padding-left: 1.4rem;
-    }
+   
+    
+    // &-content .sidebar-menu#sidebar-list {
+    //     background-color: red;
+    //     position: absolute;
+    //     overflow: hidden;
+    //     width: 280px;
+    //     height: calc(100vh - 325px);
+    //     margin-left: -1.4rem;
+    //     padding-left: 1.4rem;
+    // }
 
     &-content &-header {
         position: relative;
@@ -20,7 +28,7 @@
         height: 185px;
     }
 
-    &-title {
+    &.title {
         // background-color: rebeccapurple;
         color: $white;
         font-size: 2.5rem;
@@ -93,10 +101,15 @@
             box-shadow: -8px 0 18px 0 rgba(25,42,70,.13);
             // box-shadow: 8px 0 180px 0 #000;
             &.show {
+                
                 -webkit-transform: translateX(9%) translateY(1px);
                 -ms-transform: translateX(9%) translateY(1px);
                 transform: translateX(9%) translateY(1px);
                 opacity: 1;
+                // &.todo.compose {
+                //     width: 35% !important;
+                //     right: 0 !important;
+                // }
             }
 
 
@@ -157,18 +170,73 @@
 
 
 @media only screen and (max-width:$small-screen-up) {
-    .hide-on-small { display: none; }
+    .hide-on-small { 
+        // display: none;
+        position: fixed;
+        width: 0;
+        // left: -273px !important;
+        transform: translateX(-300%);
+        transition: 
+                width .3s cubic-bezier(.75,.15,.24,.83) 0s,
+                transform 1s cubic-bezier(.75,.15,.24,.83) .5s,
+            // width .2s ease-out .5s
+                ;
+        .sidebar {
+            &.title, p, &-content li  { font-size: 0; }
+            &-content .active { 
+                border-radius: 0 !important;
+                margin-right: 0;
+            }
+
+            &.title i { right: 30px; }
+            
+
+        }
+
+        &[class*="col-"] { padding-right: 0; }
+
+        &.show {
+            width: 80%;
+            -webkit-transform: translateX(0%);
+            -ms-transform: translateX(0%);
+            transform: translateX(0%);
+            transition: width .3s cubic-bezier(.75,.15,.24,.83) 0s;
+            &[class*="col-"] { padding-right: 15px; }
+            
+            .sidebar {
+                &.title {
+                    font-size: 2.5rem;
+                    i { right: 5px; }
+                }
+                p, &-content li  { font-size: 1rem; }
+                &-content .active {
+                    border-top-right-radius: 2rem !important;
+                    border-bottom-right-radius: 2rem !important;
+                }
+                
+
+
+            }
+        }
+    }
     .sidebar {
-        // padding: 0;
+        &-right {
+            // &.fixed { position: fixed; background-color: palevioletred; }
+            // background-color: palevioletred; 
+            width: 0;
+        }
+        &.left { background-color: rgba($color: $black, $alpha: 80%);}
+
         &.todo {
-        padding: 0;
+            padding: 0;
 
             &.compose {
                 
-                position: relative;
+                // position: relative;
                 position: absolute;
-                width: 85%;
-                // align-content: center;
+                width: 0;
+                // width: 85%;
+                align-content: center;
                 // text-align: center;
                 top: 50px;
                 left: 0 !important;
@@ -176,14 +244,10 @@
                 // margin: 0 auto;
                 z-index: 1000;
 
+
                
                 // box-shadow: 8px 0 180px 0 #000;
-                // &.show {
-                //     -webkit-transform: translateX(9%) translateY(1px);
-                //     -ms-transform: translateX(9%) translateY(1px);
-                //     transform: translateX(9%) translateY(1px);
-                //     opacity: 1;
-                // }
+                &.show { width: 85%; }
     
     
                 // .card {
@@ -216,3 +280,16 @@
     }
 }
 
+/* Enter and leave animations can use different */
+/* durations and timing functions.              */
+.slide-fade-enter-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }

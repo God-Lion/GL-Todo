@@ -16,123 +16,74 @@
     font-feature-settings: 'liga';
 }
 
-input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid #9e9e9e;
-    border-radius: 0;
-    outline: none;
-    height: 3rem;
-    width: 100%;
-    font-size: 16px;
-    margin: 0 0 8px 0;
-    padding: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    -webkit-box-sizing: content-box;
-    box-sizing: content-box;
-    -webkit-transition: border .3s, -webkit-box-shadow .3s;
-    transition: border .3s, -webkit-box-shadow .3s;
-    transition: box-shadow .3s, border .3s;
-    transition: box-shadow .3s, border .3s, -webkit-box-shadow .3s;
-}
+// input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
+//     background-color: transparent;
+//     border: none;
+//     border-bottom: 1px solid #9e9e9e;
+//     border-radius: 0;
+//     outline: none;
+//     height: 3rem;
+//     width: 100%;
+//     font-size: 16px;
+//     margin: 0 0 8px 0;
+//     padding: 0;
+//     -webkit-box-shadow: none;
+//     box-shadow: none;
+//     -webkit-box-sizing: content-box;
+//     box-sizing: content-box;
+//     -webkit-transition: border .3s, -webkit-box-shadow .3s;
+//     transition: border .3s, -webkit-box-shadow .3s;
+//     transition: box-shadow .3s, border .3s;
+//     transition: box-shadow .3s, border .3s, -webkit-box-shadow .3s;
+// }
 
 .todo {
     position: relative;
     &-search {
-        margin-top: 25px;
-        background-color: $white;
-        display: flex;
+      margin-top: 25px;
+      background-color: $white;
+      display: flex;
 
-        &.icon {
-            color: $black;
-            margin: 14px 10px 0 10px;
-        }
+      &.icon {
+        color: $black;
+        margin: 14px 10px 0 10px;
+      }
 
-        input {
-            border: none !important;
-            margin: 0 !important;
-            padding: 0;
-        }
-        
-        
+      input {
+        border: none !important;
+        margin: 0 !important;
+        padding: 0;
+      }
     }
     &.edit {
-        // &.item {
-        //     // background-color: greenyellow;
-            
-        // }
-        &.content {
-            margin: 25px 0 15px 0;
-            padding: 10px !important;
-            // background-color: pink;
-            border: 1px solid gray;
-            border-radius: 2px;
-            line-height: normal;
-            overflow-y: hidden;
-            resize: none;
-            min-height: 1rem;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            width: 100%;
-            &:focus { outline: none; }
-        }
-    }
-
-    
-    
-}
-
-label { cursor: default; }
-
-.input-field {
-    position: relative;
-
-    &.focus {
-      label {
-        color: $black;
-        font-size: 15px;
-        top: 0px;
+      // &.item {
+      //     // background-color: greenyellow;
+          
+      // }
+      &.content {
+          margin: 25px 0 15px 0;
+          padding: 10px !important;
+          // background-color: pink;
+          border: 1px solid gray;
+          border-radius: 2px;
+          line-height: normal;
+          overflow-y: hidden;
+          resize: none;
+          min-height: 1rem;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+          width: 100%;
+          &:focus { outline: none; }
       }
-    //   i { color: $secondary-color; }
     }
 
-    & > label {
-      color: #9e9e9e;
-      position: absolute;
-      top: 0;
-      left: 20px;
-      font-size: 1rem;
-      cursor: text;
-      -webkit-transition: color .2s ease-out, -webkit-transform .2s ease-out;
-      transition: color .2s ease-out, -webkit-transform .2s ease-out;
-      transition: transform .2s ease-out, color .2s ease-out;
-      transition: transform .2s ease-out, color .2s ease-out, -webkit-transform .2s ease-out;
-      -webkit-transform-origin: 0% 100%;
-      transform-origin: 0% 100%;
-      text-align: initial;
-      -webkit-transform: translateY(12px);
-      transform: translateY(12px);
-    }
-
-    .prefix {
-      position: absolute;
-      width: 3rem;
-      font-size: 2rem;
-      -webkit-transition: color .2s;
-      transition: color .2s;
-      top: 1.9rem;
-    }
+    
+    
 }
 
-textarea.textarea {
-    line-height: normal;
-    overflow-y: hidden;
-    resize: none;
-    min-height: 1rem;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
+// label { cursor: default; }
+
+
 
 input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.textarea {
     background-color: transparent;
@@ -154,3 +105,196 @@ input:not([type]), input[type=text]:not(.browser-default), input[type=password]:
     transition: box-shadow .3s, border .3s;
     transition: box-shadow .3s, border .3s, -webkit-box-shadow .3s;
 }
+
+
+form.login-form {
+    background-color: antiquewhite;
+  
+    h5 {
+      color: $black;
+      font-size: 1.64rem;
+      margin: .82rem 0 .656rem;
+      text-align: center;
+    }
+  
+    
+  
+    
+    input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea {
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid #9e9e9e;
+      border-radius: 0;
+      outline: none;
+      height: 3rem;
+      width: 100%;
+      font-size: 16px;
+      margin: 0 0 8px 0;
+      padding: 0;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      -webkit-box-sizing: content-box;
+      box-sizing: content-box;
+      -webkit-transition: border .3s, -webkit-box-shadow .3s;
+      transition: border .3s, -webkit-box-shadow .3s;
+      transition: box-shadow .3s, border .3s;
+      transition: box-shadow .3s, border .3s, -webkit-box-shadow .3s;
+    }
+  
+    input {
+      -webkit-writing-mode: horizontal-tb;
+      text-rendering: auto;
+      color: -internal-light-dark-color(black, white);
+      letter-spacing: normal;
+      word-spacing: normal;
+      text-transform: none;
+      text-indent: 0px;
+      text-shadow: none;
+      display: inline-block;
+      text-align: start;
+      -webkit-appearance: textfield;
+      background-color: -internal-light-dark-color(white, black);
+      -webkit-rtl-ordering: logical;
+      cursor: text;
+      margin: 0em;
+      font: 400 13.3333px Arial;
+      padding: 1px 0px;
+      border-width: 2px;
+      border-style: inset;
+      border-color: initial;
+      border-image: initial;
+    }
+  
+    i { line-height: inherit; }
+  
+    .input-field .prefix ~ input, .input-field .prefix ~ textarea, .input-field .prefix ~ label, .input-field .prefix ~ .validate ~ label, .input-field .prefix ~ .helper-text, .input-field .prefix ~ .autocomplete-content {
+      margin-left: 3rem;
+      width: 92%;
+      width: calc(100% - 3rem);
+    }
+}
+
+
+
+
+
+
+.input-field {
+  position: relative;
+
+  label { cursor: default; }
+
+  textarea.textarea {
+    line-height: normal;
+    overflow-y: hidden;
+    resize: none;
+    min-height: 2rem;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+    // &.title {
+    //   background-color: navy;
+    //   padding-bottom: 20px !important;
+    // }
+
+    &.content {
+      // background-color: navy;
+      & ~ label {
+        // background-color: red;
+        top: 25px;
+        left: 10px;
+      }
+    }
+  }
+
+  &.focus {
+    & > textarea {
+      & ~ label {
+        color: $black;
+        font-size: 15px;
+      }
+  
+      &.title {
+        // background-color: rebeccapurple;
+        border-bottom-color: $primary-color;
+        transform-origin: center;
+        transition: border-color .5s cubic-bezier(.75,.15,.24,.83) 0s,
+                    width .2s ease-out .5s;
+        
+        & ~ label {
+          transition: .3s;
+          // top: -29px !important;
+          left: 0 !important;
+          color: $primary-color;
+          transform: translateY(-7px);
+        }
+      }
+      &.content {
+        border-color: $primary-color;
+  
+        & ~ label {
+          transition: .15s;
+          visibility: hidden;
+        }
+      }
+      i { color: $secondary-color; }
+    }
+  }
+
+  & > label {
+    // background-color: yellowgreen !important;
+    color: #9e9e9e;
+    position: absolute;
+    top: -10px;
+    left: 0;
+    font-size: 1rem;
+    cursor: text;
+    -webkit-transition: color .2s ease-out, -webkit-transform .2s ease-out;
+    transition: color .2s ease-out, -webkit-transform .2s ease-out;
+    transition: transform .2s ease-out, color .2s ease-out;
+    transition: transform .2s ease-out, color .2s ease-out, -webkit-transform .2s ease-out;
+    -webkit-transform-origin: 0% 100%;
+    transform-origin: 0% 100%;
+    text-align: initial;
+    -webkit-transform: translateY(12px);
+    transform: translateY(12px);
+  }
+
+  .prefix {
+    position: absolute;
+    width: 3rem;
+    font-size: 2rem;
+    -webkit-transition: color .2s;
+    transition: color .2s;
+    top: 1.9rem;
+  }
+}
+
+// .input-field {
+//   background-color: palevioletred;
+//   position: relative;
+
+ 
+
+//   // &.focus {
+//   //   label {
+//   //     background-color: red;
+//   //     color: $black;
+//   //     font-size: 15px;
+//   //     top: 10px;
+//   //   }
+//   //   i { color: $secondary-color; }
+//   // }
+  
+
+  
+
+//   .prefix {
+//     position: absolute;
+//     width: 3rem;
+//     font-size: 2rem;
+//     -webkit-transition: color .2s;
+//     transition: color .2s;
+//     top: 1.9rem;
+//   }
+// }

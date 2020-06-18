@@ -1,0 +1,10 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "God-Lion <borneluszico@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.2.0"
+  }
+}

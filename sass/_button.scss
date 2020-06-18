@@ -126,6 +126,45 @@ button {
                 display: block;
             }
         }
+
+        // &.action {
+        //     &.fixed{
+        //         position: fixed;
+        //         background-color: brown !important;
+        //         // right: 23px;
+        //         // bottom: 44px;
+        //         // padding-top: 15px;
+        //         // margin-bottom: 0;
+        //         z-index: 9999;
+        //     }
+        // }
+    
+        // &.floating {
+        //     display: inline-block;
+        //     color: #fff;
+        //     position: relative;
+        //     overflow: hidden;
+        //     z-index: 1;
+        //     width: 40px;
+        //     height: 40px;
+        //     line-height: 40px;
+        //     padding: 0;
+        //     background-color: transparent;
+        //     border-radius: 50%;
+        //     -webkit-transition: background-color .3s;
+        //     transition: background-color .3s;
+        //     cursor: pointer;
+        //     vertical-align: middle;
+        //     &.large {
+        //         width: 56px;
+        //         height: 56px;
+        //         padding: 0;
+        //         i {
+        //             position: relative;
+        //             top: 4px
+        //         }
+        //     }
+        // }
     }
     .show-on-small { display: block; }
 }
