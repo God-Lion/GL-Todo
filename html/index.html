@@ -21,30 +21,33 @@
                 </div>
                 <div class="row">
                   <div class="input-field col-12">
-                    <i class="material-icons prefix pt-2">person_outline</i>
-                    <input type="text" placeholder="Pseudo">
+                    <i class="material-icons prefix">person_outline</i>
+                    <input type="text" v-model.trim="user.name">
+                    <label for="title">Nom</label>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="input-field col-12">
+                    <i class="material-icons prefix">lock_outline</i>
+                    <input type="text" v-model.trim="user.email">
+                    <label for="title">Email</label>
                   </div>
                 </div>
   
                 <div class="row">
                   <div class="input-field col-12">
-                    <i class="material-icons prefix pt-2">lock_outline</i>
-                    <input type="password" placeholder="Password">
-                  </div>
-                </div>
-  
-                <div class="row">
-                  <div class="input-field col-12">
-                    <button @click="$emit('close')" class="btn">
-                      Connect
+                    <button @click="$emit('add')" class="btn">
+                      Ajouter un utilisateur
                     </button>
                   </div>
                 </div>
   
-                <div class="row">
+                <!-- <div class="row">
                   <div class="input-field col-6 left-align"><p class="m-0"><a href="#signup">Register now</a></p></div>
                   <div class="input-field col-6 right-align"><p class="m-0"><a href="forgot.html">Password forget</a></p></div>
-                </div>
+                </div> -->
   
               </form>
   
@@ -64,81 +67,76 @@
     </script>
     <script type="text/x-template" id="deletetodo"><div @click="$emit('rm')" class="delete-task center todo"><i class="material-icons">delete</i></div></script>
 
-
     <main id="todo">
-      <div class="todo-overlay sho w"></div>
-
+      <div :class="{'show': showSlideRight}" class="todo-overlay "></div>
+      <div v-show="!showSlideLeft"le=" right: 19px; z-index: 9999;" class="btn action fixed active"><button @click="showSlideRight = !showSlideRight" class="btn floating large goldenrod"><i class="material-icons white">note_add</i></button></div>
       <header class="header">
         <div class="col-12">
           <div class="col-1">
-            <button class="btn-todo show-on-small"><i class="material-icons">menu</i></button>
-            <button id="show-modal" @click="showModal = true">Show Modal</button>
-            <modal v-if="showModal" @close="showModal = false">
-              <!-- <h3 slot="header">custom header</h3> -->
-            </modal>
+            <button @click="showSlideLeft = !showSlideLeft" class="btn-todo show-on-small">
+              <i v-show="!showSlideLeft" class="material-icons">menu</i>
+              <i v-show="showSlideLeft" class="material-icons">close</i>
+            </button>
+            <!-- <button id="show-modal" @click="showModal = true">Show Modal</button> -->
+            
           </div>
         </div>
       </header>
-
-      
+      <modal  v-if="showModal"  @close="showModal = false" @add="addUser()" v-model="user"></modal>
 
       <main role="main">
         <section class=" row">
           <div class="col-12">
-
-            
-          <div class="col-3">
-            <div class="sidebar-left col-12 hide-on-small">
-              <div class="sidebar">
-                <div class="sidebar-content">
-
-
-                  <div class="sidebar-header">
-                    <div class="sidebar-details">
-                      <h5 class="sidebar-title"><i class="material-icons">check_box</i> To-Do</h5>
-                      <div class="row animate fadeLeft">
-                        <div class="todo-user" v-for="(user, i) in users" v-if="i == currentUser">
-                          <p class="subtitle"><span>{{ user.name }}</span> <span>{{ user.lastName }}</span></p>
-                          <p class="text-muted">{{ user.email }}</p>
+            <transition>
+              <div class="col-3">
+                <div :class="{'show': showSlideLeft}" class="sidebar left fixed hide-on-small col-12">
+                  <div class="sidebar">
+                    <div class="sidebar-content">
+    
+    
+                      <div class="sidebar-header">
+                        <div class="sidebar-details">
+                          <h5 class="sidebar title"><i class="material-icons">check_box</i> To-Do</h5>
+                          <div class="row animate fadeLeft">
+                            <div class="todo-user" v-for="(user, i) in filteredUsers" v-if="i == currentIdUser">
+                              <p class="subtitle"><span>{{ user.name }}</span></p>
+                              <p class="text-muted">{{ user.email }}</p>
+                            </div>
+                          </div>
                         </div>
                       </div>
+    
+                      <div class="sidebar-menu">
+                        <ul class="todo-list display-grid">
+                          <li :class="{ active: visibility == 'all' }"><a href="#/all" :class="{ selected: visibility == 'all' }" class="text-sub"><i class="material-icons"> mail_outline </i> Tous</a></li>
+                          <li :class="{ active: visibility == 'active' }"><a href="#/active" :class="{ selected: visibility == 'active' }" class="text-sub"><i class="material-icons"> fiber_manual_record  </i>Active</a></li>
+                          <li :class="{ active: visibility == 'completed' }"><a href="#/completed" :class="{ selected: visibility == 'completed' }" class="text-sub"><i class="material-icons"> fiber_manual_record  </i> Complete</a></li>
+                          <!-- <li class="sidebar-title-list">Filters</li>
+                          <li><button class="text-sub"><i class="material-icons"> star_border </i> Starred</button></li>
+                          <li><button class="text-sub"><i class="material-icons"> info_outline </i> Priority</button></li>
+                          <li><button class="text-sub"><i class="material-icons"> watch_later </i> Scheduled</button></li>
+                          <li><button class="text-sub"><i class="material-icons"> date_range </i> Today</button></li> -->
+                          <!-- <li><button class="text-sub"><i class="material-icons"> check </i> Done</button></li>
+                          <li><button class="text-sub"><i class="material-icons"> delete </i> Delete</button></li>
+                          <li class="sidebar-title-list">Department</li>
+                          <li><button class="text-sub"><i class="purple-text material-icons small-icons">fiber_manual_record </i> API</button></li>
+                          <li><button class="text-sub"><i class="amber-text material-icons small-icons">fiber_manual_record </i> Paypal</button></li>
+                          <li><button class="text-sub"><i class="light-green-text material-icons small-icons">fiber_manual_record </i> Invoice</button></li> -->
+                        </ul>
+                      </div>
+    
                     </div>
                   </div>
-
-                  <div class="sidebar-menu">
-                    <ul class="todo-list display-grid">
-                      <li :class="{ active: visibility == 'all' }"><a href="#/all" :class="{ selected: visibility == 'all' }" class="text-sub"><i class="material-icons"> mail_outline </i> Tous</a></li>
-                      <li :class="{ active: visibility == 'active' }"><a href="#/active" :class="{ selected: visibility == 'active' }" class="text-sub"><i class="material-icons"> fiber_manual_record  </i>Active</a></li>
-                      <li :class="{ active: visibility == 'completed' }"><a href="#/completed" :class="{ selected: visibility == 'completed' }" class="text-sub"><i class="material-icons"> fiber_manual_record  </i> Complete</a></li>
-                      <!-- <li class="sidebar-title-list">Filters</li>
-                      <li><button class="text-sub"><i class="material-icons"> star_border </i> Starred</button></li>
-                      <li><button class="text-sub"><i class="material-icons"> info_outline </i> Priority</button></li>
-                      <li><button class="text-sub"><i class="material-icons"> watch_later </i> Scheduled</button></li>
-                      <li><button class="text-sub"><i class="material-icons"> date_range </i> Today</button></li> -->
-                      <!-- <li><button class="text-sub"><i class="material-icons"> check </i> Done</button></li>
-                      <li><button class="text-sub"><i class="material-icons"> delete </i> Delete</button></li>
-                      <li class="sidebar-title-list">Department</li>
-                      <li><button class="text-sub"><i class="purple-text material-icons small-icons">fiber_manual_record </i> API</button></li>
-                      <li><button class="text-sub"><i class="amber-text material-icons small-icons">fiber_manual_record </i> Paypal</button></li>
-                      <li><button class="text-sub"><i class="light-green-text material-icons small-icons">fiber_manual_record </i> Invoice</button></li> -->
-                    </ul>
-                  </div>
-
                 </div>
+                
               </div>
-            </div>
             
-          </div>
-
-
-
-
-
+            </transition>
 
             <div class="col-9">
               <div class="todo-search border-radius">
                 <i class="material-icons todo-search icon">search</i>
-                <input type="text" placeholder="Rerchercher Un Contact" class="app-filter">
+                <input type="text" v-model.trim="search" placeholder="Rerchercher Un Contact" class="app-filter">
               </div>
               <div class="card todo border-radius">
                 <div class="card-content">
@@ -157,13 +155,13 @@
                     <li v-for="todo in filteredTodos" :key="todo.id" :class="{ completed: todo.completed, editing: todo == editedTodo }" class="collection-item">
                       <!-- <div class="todo-move"><i class="material-icons icon-move">more_vert</i></div> -->
                       <div class="list-left">
-                        <!-- <label>
+                        <label>
                           <input type="checkbox" v-model="todo.completed">
                           <span></span>
-                        </label> -->
+                        </label>
                         <!-- <i class="material-icons favorite">star_border</i> -->
                       </div>
-                      <div class="list-content">
+                      <div @click.stop.preventDefault="editTodo(todo)"class="list-content">
                         <div class="list-title-area">
                           <div class="list-title">{{ todo.title }}</div>
                           <!-- <span class="badge grey lighten-2"><i class="purple-text material-icons small-icons">fiber_manual_record </i>API</span> -->
@@ -182,32 +180,31 @@
               </div>
             </div>
 
-            <!-- v-on:before-enter="beforeEnter" -->
-            <transition
-              name="slide-fade"
-              appear
-            >
-              <div class="todo compose sidebar right s how">
+            <transition name="slide-fade" >
+              <div :class="{'show': showSlideRight}" class="todo compose sidebar">
                 <div class="card">
                   <div class="card-content">
                     <div class="card-header display-flex">
                       <h3 class="card-title todo title hid">NOUVELLE TACHE</h3>
                       <button class="btn todo complete primary hide">Tacche Complete</button>
-                      <div class="close icon"><i class="material-icons">close</i></div>
+                      <div @click="showSlideRight = false" class="close icon"><i class="material-icons">close</i></div>
                     </div>
     
-                    <form class="todo edit item ">
+                    <form :class="{'show': showSlideRight}" class="todo edit">
                       <div class="input-field">
-                        <textarea v-model="todo.title" id="title" class="todo edit item title textarea" style="height: 10px; padding: .8rem 0 .8rem 0;"></textarea>
+                        <textarea v-model.trim="todo.title" id="title" class="todo edit item title textarea" style="height: 10px; padding: .8rem 0 .8rem 0;"></textarea>
                         <label for="title">Ecrire le nom de la tache</label>
                       </div>
                       <div class="input-field">
-                        <textarea v-model="todo.content" id="content" class="todo edit item content textarea" style="height: 150px; padding: .8rem 0 .8rem 0;"></textarea>
+                        <textarea v-model.trim="todo.content" id="content" class="todo edit item content textarea" style="height: 150px; padding: .8rem 0 .8rem 0;"></textarea>
                         <label for="content">Ajouter la description</label>
                       </div>
+                      <div class="card-action left-align">
+                        <button v-show="edit" @click="doneEditTodo(todo)" class="btn small primary todo  update "><span>Modifier La Tache</span></button>
+                      </div>
                       <div class="card-action right-align">
-                        <button @click="addTodo" class="btn small primary todo add hid e "><span>ajouter une tache</span></button>
-                        <button class="btn small todo  update hide"><span>Save Changes</span></button>
+                        <button v-show="!edit" @click="addTodo" class="btn small primary todo add"><span>Ajouter Une Tache</span></button>
+                        <button v-show="edit" class="btn small primary todo cancel "><span @click="cancelEditTodo()">Annuler</span></button>
                       </div>
                     </form>
                   </div>
@@ -217,11 +214,11 @@
   
           </div>
         </section>
-        <div style="bottom: 75px; right: 19px; z-index: 9999;" class="btn action fixed active"><button @click="sidebarRight" class="btn floating large goldenrod"><i class="material-icons white">note_add</i></button></div>
+
       </main>
 
 
-      <footer style="position: relative !important; bottom: 0 !important;" class="footer"></footer>
+      <footer style="position: absolute; top:10px; bottom: 70px;" class="footer"></footer>
     </main>
     <script src="../js/vue.js" type="text/javascript"></script>
     <script src="../js/index.js" type="text/javascript"></script>

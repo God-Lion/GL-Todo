@@ -223,7 +223,7 @@
         &-right {
             // &.fixed { position: fixed; background-color: palevioletred; }
             // background-color: palevioletred; 
-            width: 0;
+            // width: 0;
         }
         &.left { background-color: rgba($color: $black, $alpha: 80%);}
 
@@ -231,8 +231,6 @@
             padding: 0;
 
             &.compose {
-                
-                // position: relative;
                 position: absolute;
                 width: 0;
                 // width: 85%;
@@ -241,55 +239,23 @@
                 top: 50px;
                 left: 0 !important;
                 right: 0 !important;
-                // margin: 0 auto;
                 z-index: 1000;
-
-
-               
                 // box-shadow: 8px 0 180px 0 #000;
                 &.show { width: 85%; }
-    
-    
-                // .card {
-                //     border-radius: 5px;
-    
-                //     &-header {
-                //         // background-color: palevioletred;
-                //         -webkit-box-pack: justify;
-                //         -webkit-justify-content: space-between;
-                //         -ms-flex-pack: justify;
-                //         justify-content: space-between;
-                //         -webkit-box-align: center;
-                //         -webkit-align-items: center;
-                //         -ms-flex-align: center;
-                //         align-items: center;
-                       
-                //         // padding-bottom: 2% !important;
-                //         .close {
-                //             &.icon { cursor: pointer; }
-                //         }
-                //     }
-                //     &-content {
-                //         // background-color: goldenrod ;
-                //         padding: 10px;
-    
-                //     }
-                // }
             }
         }
     }
 }
 
-/* Enter and leave animations can use different */
-/* durations and timing functions.              */
-.slide-fade-enter-active {
-    transition: all .3s ease;
-  }
-  .slide-fade-leave-active {
-    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-  }
-  .slide-fade-enter, .slide-fade-leave-to
-  /* .slide-fade-leave-active below version 2.1.8 */ {
+.todo.sidebar.compose.right {
+    & button { transform: translateX(-150%); }
+    &.show button { transform: translateX(0%); }
+}
+.slide-fade-enter-active { transition: all .3s ease; }
+
+.slide-fade-leave-active { transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0); }
+
+.slide-fade-enter, .slide-fade-leave-to {
     transform: translateX(10px);
     opacity: 0;
-  }
+}

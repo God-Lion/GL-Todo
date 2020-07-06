@@ -57,9 +57,10 @@ class FilterUsers {
 }
 
 class Filters {
-  static all (todos) { return todos.filter( (todo) => { return todo.idUser == User.currentUser }) }
   static active (todos) { return todos.filter( (todo) => { return (!todo.completed && todo.idUser == User.currentUser) }) }
+  static all (todos) { return todos.filter( (todo) => { return todo.idUser == User.currentUser }) }
   static completed (todos) { return todos.filter( (todo) => { return (todo.completed && todo.idUser == User.currentUser) }) }
+  static search (todos, search) { return todos.filter( ( row ) => { if (row.idUser == User.currentUser) return  ["title", "content"].some( ( key ) => { return String( row[key] ).toLowerCase().indexOf( search ) > -1 } ) })  }
 }
 
 const todoStorage = new Storage()
@@ -87,9 +88,10 @@ const todo = new Vue({
   data: {
     todos: todoStorage.fetchAllTodo(),
     users: todoStorage.fetchAllUser(),
-    currentIdUser: 0,
     todo: new Todo(),
     user: new User(),
+    search: '',
+    currentIdUser: 0,
     editedTodo: null,
     currentUser: 'current',
     visibility: 'all',
@@ -97,6 +99,7 @@ const todo = new Vue({
     showModal: false,
     showSlideLeft: false,
     showSlideRight: false,
+    edit: false
   },
   components: {
     modal     : {
@@ -133,42 +136,17 @@ const todo = new Vue({
       deep: true
     }
   },
-  mounted: function() {
-    let slideLeft = document.querySelector('.sidebar.left');
-    let app = document.querySelector('#todo');
+  mounted () {
+    console.log(this.search)
     let startX = 0;
     let endX = 0;
-    slideLeft.addEventListener("touchmove", (e) => {
-      endX = e.touches[0].pageX
-      if (endX > 250) this.showSlideLeft = false
-      // console.log('app touchmove ' + endX  )
-
-    });
-    app.addEventListener("touchmove", (e) => {
-      // console.log('app touchstart')
-      this.showSlideLeft = false
-      startX = e.touches[0].pageX
-      console.log('app touchmove' + startX)
-      // if(startX < 30) this.showSlideLeft = true
-
-    });
-   
-
-
-
-
-    // slideLeft.addEventListener('touchstart', (e) => {
-    //   console.log('okay touchstart')
-    //   startX = e.touches[0].pageX
-    // });
-    
-    // slideLeft.addEventListener("touchend", function(event) {
-    //   console.log('okay touchend')
-      // this.showSlideLeft = false
-    //   var threshold = startX - endX;
-    //   if (threshold < 150 && 0 < this.currentSlide) this.currentSlide--;
-    //   if (threshold > -150 && this.currentSlide < this.slides.length - 1) this.currentSlide++;
-    // }.bind(this));
+    this.$el.addEventListener("touchstart", (e) => startX = event.touches[0].pageX);
+    this.$el.addEventListener("touchmove", (e) => endX = event.touches[0].pageX);
+    this.$el.addEventListener("touchend", function(e) {
+      let threshold = startX - endX;
+      if ( threshold < 250 && 70 < threshold ) this.showSlideLeft = false
+      if ( threshold < -100 ) this.showSlideLeft = true
+    }.bind(this));
   },
   computed: {
     filteredUsers () {
@@ -176,7 +154,10 @@ const todo = new Vue({
       if( data.length <= 0 ) this.showModal = true
       return data 
     },
-    filteredTodos () { return Filters[this.visibility]( this.todos ) },
+    filteredTodos () {
+      if ( this.search ) return Filters['search']( this.todos, this.search )
+      return Filters[this.visibility]( this.todos )
+    },
     remaining () { return Filters.active(this.todos).length },
     allDone: {
       get () { return this.remaining === 0 },
@@ -184,10 +165,11 @@ const todo = new Vue({
     }
   },
   filters: {
-    pluralize (n) { return n === 1 ? 'item' : 'items'}
+    pluralize (n) { return n === 1 ? 'item' : 'items'},
+    capitalize (str) { return str.charAt(0).toUpperCase() + str.slice(1) }
   },
   methods: {
-    addUser() {
+    addUser () {
       if (!this.user.name && !this.user.email) return
       this.users.push( new User ( User.length++, this.user.name, this.user.email )  )
       this.user = new User()
@@ -199,32 +181,39 @@ const todo = new Vue({
       if (!title && !content) return
       this.todos.push( new Todo ( Todo.length++, this.currentIdUser, title, content, false )  )
       this.todo = new Todo()
+      this.showSlideRight = false
+    },
+    editTodo ( todo ) {
+      this.beforeEditTodoCache = todo
+      this.editedTodo = todo
+      this.todo = todo
+      this.edit = true
+      this.showSlideRight = true
+    },
+    doneEditTodo ( todo ) {
+      if (!this.editedTodo) return
+      this.editedTodo = null
+      this.todo = todo
+      this.showSlideRight = false
+    },
+    cancelEditTodo () {
+      this.editedTodo = null
+      todo = this.beforeEditTodoCache
+      this.todo = new Todo()
+      this.edit = false
+      this.showSlideRight = false
+      debugger
     },
     removeTodo (todo) { this.todos.splice(this.todos.indexOf(todo), 1) },
-    removeCompleted () { this.todos = Filters.active(this.todos) },
-    // editTodo (todo) {
-    //   this.beforeEditCache = todo.title
-    //   this.editedTodo = todo
-    // },
-  //   doneEdit: function (todo) {
-  //     if (!this.editedTodo) return
-  //     this.editedTodo = null
-  //     todo.title = todo.title.trim()
-  //     if (!todo.title) {
-  //       this.removeTodo(todo)
-  //     }
-  //   cancelEdit: function (todo) {
-  //     this.editedTodo = null
-  //     todo.title = this.beforeEditCache
-  //   },
+    removeCompleted () { this.todos = Filters.active(this.todos) }
   },
-  // directives: {
-  //   'todo-focus': function (el, binding) {
-  //     if (binding.value) {
-  //       el.focus()
-  //     }
-  //   }
-  // }
+  directives: {
+    'todo-focus' (el, binding) {
+      console.log(binding)
+      debugger
+      if (binding.value) el.focus()
+    }
+  }
 })
 
 function onHashChange () {
@@ -240,26 +229,9 @@ onHashChange()
 
 
 
-
-// todoStorage.save(allTodo)
-// todoStorage.fetchAll()
-// var all = todoStorage.fetchAllUser()
-
-// console.log( todoStorage )
-// console.log( all )
-// console.log( Todo.length )
-
-
 const inputs = document.querySelectorAll('form textarea')
 inputs.forEach(input => {
     let parent = input.parentNode
-    input.addEventListener("focus", function () {
-      parent.classList.add("focus")
-    });
-    input.addEventListener("blur", function () {
-      if(this.value == "") parent.classList.remove("focus");
-    })
+    input.addEventListener("focus", () => { if(!this.value) parent.classList.add("focus") });
+    input.addEventListener("blur", () => { if(this.value == "") parent.classList.remove("focus"); })
 })
-
-// const inputs = document.querySelectorAll('form .input-field')
-// console.log( inputs )
